@@ -1,4 +1,4 @@
-{
+export const permission = {
   "Admin": {
     "dashboard": {
       "securityAlerts": "Allow",

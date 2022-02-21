@@ -6,7 +6,7 @@ import DowpDown from './Components/DropDown';
 import ViewJSON from './Components/ViewJSON';
 import AddRole from './Components/AddRole';
 import AddPermission from './Components/AddPermission';
-
+import {permission as defaults } from './permission'
 function App() {
   const [json, setJSON] = useState({})
   const options = [
@@ -123,13 +123,17 @@ function App() {
   }, [json])
   useEffect(() => {
     const backup = localStorage.getItem('json')
-    try {
-      const restored = JSON.parse(backup)
-      if (restored) {
-        setJSON(restored)
+    if (!backup) {
+      setJSON(defaults)
+    } else {
+      try {
+        const restored = JSON.parse(backup)
+        if (restored) {
+          setJSON(restored)
+        }
+      } catch (error) {
+        console.error(error)
       }
-    } catch (error) {
-      console.error(error)
     }
   }, [])
   return (
