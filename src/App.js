@@ -25,7 +25,7 @@ function App() {
     }
     return final
   }
-  
+
   const { tableBody, tableHeader } = useMemo(() => {
     try {
       let flatPermissions = {}
@@ -42,7 +42,14 @@ function App() {
       return { tableBody: {}, tableHeader: [] }
     }
   }, [json])
-
+  const deleteRole = (role) => {
+    try {
+      delete json[role]
+      setJSON({ ...json })
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const onFiles = useCallback(async (files) => {
     try {
       function onReaderLoad(event) {
@@ -73,6 +80,29 @@ function App() {
       }
     })
     setJSON({ ...json })
+  }
+  const deleteAt = (at) => {
+    try {
+      const route = at.split('.')
+      console.log('route', route)
+      for (const role in json) {
+        let target = json[role];
+        console.log('target', target)
+        route.forEach((key, i) => {
+          if (i == route.length - 1) {
+            delete target[key]
+          } else {
+            console.log({target,key})
+            if (!target[key]) throw Error('Something went wrong')
+            target= target[key]
+          }
+        })
+      }
+      console.log({json})
+      setJSON({ ...json })
+    } catch (error) {
+      alert(JSON.stringify(error))
+    }
   }
   const copy = () => {
     navigator.clipboard.writeText(JSON.stringify(json))
@@ -121,12 +151,25 @@ function App() {
               <thead class="thead-dark">
                 <tr>
                   <th>Permissions</th>
-                  {Object.keys(tableBody).map(role => <th key={role}>{role}</th>)}
+                  {Object.keys(tableBody).map(role =>
+                    <th key={role}>
+                      {role}
+                      <button
+                        title='Remove Role'
+                        className='btn btn-outline-danger btn-sm ml-4'
+                        onClick={() => deleteRole(role)}>X</button>
+                    </th>)}
                 </tr>
               </thead>
               <tbody>
                 {tableHeader.map(permission => <tr key={permission}>
-                  <td>{permission}</td>
+                  <td className='action'>
+                    {permission} 
+                    <button
+                        title='Remove PERMISSION'
+                        className='btn btn-outline-danger btn-sm ml-4'
+                        onClick={() => deleteAt(permission)}>X</button>
+                  </td>
                   {Object.keys(tableBody).map(role => (
                     <td key={permission + role}>
                       <DowpDown options={options} value={tableBody[role][permission]} onChange={(e) => changeAt(role, permission, e.target.value)} />
