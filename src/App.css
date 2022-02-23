@@ -1,14 +1,14 @@
-*{
-  margin:0;
+* {
+  margin: 0;
   padding: 0;
 }
 .dragging {
   z-index: 9000000;
-  width:100vw;
+  width: 100vw;
   height: 100vh;
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,47 +18,57 @@
 .dragging h4 {
   border: 2px dashed grey;
   padding: 5rem;
-
 }
-.App{
-  width:100%;
+.App {
+  width: 100%;
   min-height: 100vh;
   position: relative;
   display: flex;
   background-color: #f4f4f4;
 }
-.select{
+.select {
   padding: 10px 20px;
-  width:100%;
-
+  width: 100%;
 }
-.json{
+.json-box {
+  height: 95vh;
+  overflow-y: auto;
 }
 .json .__json-pretty__ {
   border-radius: 10px;
-    padding: 32px;
-    margin: 0px
+  padding: 32px;
+  padding-top: 64px;
+  margin: 0px;
 }
-.table-box{flex:2;
+.table-box {
+  flex: 2;
+  height: 95vh;
+  overflow-y: auto;
   padding: 32px;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.controls{
-  width:100%;
+.controls {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.json-box{flex:1;
-   padding:10px;
+.json-box {
+  flex: 1;
+  padding: 10px;
   position: relative;
 }
 .copy {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+.reset {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 .Allow {
   background-color: lightgreen;
